@@ -14,6 +14,8 @@ for i in range(0,len(offset_raw)):
   except:
     pass
 
+print(offsets["A000037"])
+
 deny_raw = open('C:/Users/'+user+'/loda/programs/oeis/deny.txt').read().split('\n')
 deny = {}
 for i in range(0,len(deny_raw)):
@@ -32,6 +34,7 @@ for i in tqdm(range(0,len(t)), desc="loading sequences", unit=" sequences"):
     continue
   for j in range(0,len(seq)):
     seq[j] = int(seq[j])
+  offset = 0
   try:
     offset = offsets[t[i].split(',')[0][0:7]]
   except:
@@ -57,12 +60,9 @@ for i in tqdm(range(0,len(t)), desc="loading sequences", unit=" sequences"):
       cal += j.count("seq")
       lpb += j.count("lpb")
       indirect += j.count("$$")
-    offset = 0
     sequences.append([t[i].split(',')[0][0:7],seq,offset,1,cal,lpb,indirect])
   else:
     sequences.append([t[i].split(',')[0][0:7],seq,offset,0,0,0,0])
 
 print("loaded",seqnum,"sequences")
-result = open('sequences.json','w')
-result.write(json.dumps(sequences))
-result.close()
+
